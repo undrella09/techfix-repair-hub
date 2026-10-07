@@ -1,0 +1,128 @@
+:root {
+    --techfix-blue: #0b3b66;
+    --techfix-blue-dark: #082d4e;
+    --techfix-accent: #2f80ed;
+}
+
+body {
+    min-height: 100vh;
+}
+
+.techfix-nav {
+    background: linear-gradient(90deg, var(--techfix-blue-dark), var(--techfix-blue));
+}
+
+.hero-section {
+    color: #fff;
+    background:
+        radial-gradient(circle at top right, rgba(47, 128, 237, 0.35), transparent 32%),
+        linear-gradient(135deg, #082d4e, #0b3b66);
+}
+
+.hero-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    padding: 1rem;
+}
+
+.hero-card img {
+    border-radius: 18px;
+}
+
+.section-kicker {
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    color: var(--techfix-accent);
+}
+
+.service-card {
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-3px);
+}
+
+.service-icon {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    background: #eaf3ff;
+    color: var(--techfix-accent);
+    font-weight: 800;
+}
+
+.mini-stat {
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: 1rem;
+    height: 100%;
+}
+
+.mini-stat strong {
+    display: block;
+    font-size: 1.6rem;
+    color: var(--techfix-blue);
+}
+
+.mini-stat span {
+    color: #64748b;
+    font-size: .9rem;
+}
+
+.cta-card {
+    color: #fff;
+    background: linear-gradient(135deg, #0b3b66, #2f80ed);
+    border-radius: 20px;
+}
+
+.stat-card {
+    background: #fff;
+    border: 1px solid #e8edf3;
+    border-radius: 16px;
+    padding: 1rem;
+    height: 100%;
+}
+
+.stat-card span {
+    display: block;
+    color: #64748b;
+    font-size: .82rem;
+}
+
+.stat-card strong {
+    display: block;
+    margin-top: .15rem;
+    font-size: 1.7rem;
+    color: var(--techfix-blue);
+}
+
+.text-truncate-cell {
+    max-width: 240px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table td, .table th {
+    white-space: nowrap;
+}
+
+@media (max-width: 767.98px) {
+    .hero-section h1 {
+        font-size: 2.2rem;
+    }
+
+    .text-truncate-cell {
+        max-width: 160px;
+    }
+
+    .table td, .table th {
+        font-size: .9rem;
+    }
+}

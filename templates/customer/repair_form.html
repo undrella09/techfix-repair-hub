@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}{{ page_title }} | TechFix Repair Hub{% endblock %}
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h1 class="h4 fw-bold mb-1">{{ page_title }}</h1>
+                    <p class="text-muted mb-4">Tell us what is wrong with your device.</p>
+
+                    <form method="post" novalidate>
+                        <div class="mb-3">
+                            <label class="form-label" for="device_type">Device Type</label>
+                            <select class="form-select" id="device_type" name="device_type" required>
+                                <option value="">Select device type</option>
+                                {% for device in device_types %}
+                                <option value="{{ device }}" {% if form.get('device_type') == device %}selected{% endif %}>
+                                    {{ device }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label" for="brand">Brand</label>
+                                <input class="form-control" id="brand" name="brand"
+                                       value="{{ form.get('brand', '') }}" maxlength="80" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="model">Model</label>
+                                <input class="form-control" id="model" name="model"
+                                       value="{{ form.get('model', '') }}" maxlength="120" required>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <label class="form-label" for="estimated_cost">Estimated Budget (PHP, optional)</label>
+                            <input class="form-control" id="estimated_cost" name="estimated_cost"
+                                   value="{{ form.get('estimated_cost', '') }}" type="number" min="0" step="0.01">
+                            <div class="form-text">The shop may update the estimate after diagnosis.</div>
+                        </div>
+
+                        <div class="mt-3">
+                            <label class="form-label" for="problem_description">Problem Description</label>
+                            <textarea class="form-control" id="problem_description" name="problem_description"
+                                      rows="6" maxlength="2000" required>{{ form.get('problem_description', '') }}</textarea>
+                        </div>
+
+                        <div class="alert alert-info mt-4">
+                            New customer requests start with <strong>Pending</strong>.
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-2">
+                            <button class="btn btn-primary" type="submit">Submit Repair Request</button>
+                            <a class="btn btn-outline-secondary" href="{{ url_for('customer.repair_jobs') }}">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

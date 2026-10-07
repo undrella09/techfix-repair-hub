@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Repair Job #{{ job.id }} | TechFix Repair Hub{% endblock %}
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-4">
+        <div>
+            <h1 class="h3 fw-bold mb-1">Repair Job #{{ job.id }}</h1>
+            <p class="text-muted mb-0">
+                Status:
+                <span class="badge {{ status_badge(job.repair_status) }}">{{ job.repair_status }}</span>
+            </p>
+        </div>
+        <div class="d-flex gap-2">
+            <a href="{{ url_for('admin.edit_repair_job', repair_id=job.id) }}" class="btn btn-primary">Edit</a>
+            <a href="{{ url_for('admin.repair_jobs') }}" class="btn btn-outline-secondary">Back</a>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <h5 class="fw-bold">Customer</h5>
+                    <dl class="row mb-0">
+                        <dt class="col-sm-5">Name</dt><dd class="col-sm-7">{{ job.customer.name }}</dd>
+                        <dt class="col-sm-5">Email</dt><dd class="col-sm-7">{{ job.customer.email }}</dd>
+                    </dl>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="fw-bold">Device Information</h5>
+                    <dl class="row mb-0">
+                        <dt class="col-sm-5">Type</dt><dd class="col-sm-7">{{ job.device_type }}</dd>
+                        <dt class="col-sm-5">Brand</dt><dd class="col-sm-7">{{ job.brand }}</dd>
+                        <dt class="col-sm-5">Model</dt><dd class="col-sm-7">{{ job.model }}</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <hr class="my-4">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <h5 class="fw-bold">Repair Information</h5>
+                    <dl class="row mb-0">
+                        <dt class="col-sm-5">Status</dt><dd class="col-sm-7">{{ job.repair_status }}</dd>
+                        <dt class="col-sm-5">Estimated Cost</dt><dd class="col-sm-7">{{ job.cost_display }}</dd>
+                        <dt class="col-sm-5">Created</dt><dd class="col-sm-7">{{ job.created_at.strftime('%Y-%m-%d %H:%M') }}</dd>
+                        <dt class="col-sm-5">Updated</dt><dd class="col-sm-7">{{ job.updated_at.strftime('%Y-%m-%d %H:%M') }}</dd>
+                    </dl>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="fw-bold">Problem Description</h5>
+                    <p class="mb-0" style="white-space: pre-wrap;">{{ job.problem_description }}</p>
+                </div>
+            </div>
+
+            <hr class="my-4">
+            <form method="post" action="{{ url_for('admin.delete_repair_job', repair_id=job.id) }}"
+                  onsubmit="return confirm('Are you sure you want to delete Repair Job #{{ job.id }}? This action cannot be undone.');">
+                <button class="btn btn-outline-danger" type="submit">Delete Repair Job</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

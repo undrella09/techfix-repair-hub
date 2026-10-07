@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}TechFix Repair Hub | Computer & Cellphone Repair{% endblock %}
+
+{% block content %}
+<section class="hero-section py-5">
+    <div class="container py-lg-5">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-7">
+                <span class="badge text-bg-light mb-3">Computer • Laptop • Cellphone Repair</span>
+                <h1 class="display-4 fw-bold">Reliable device repair without the guesswork.</h1>
+                <p class="lead text-white-50">
+                    TechFix Repair Hub helps customers submit repair requests and track their device status,
+                    while our staff keeps every repair job organized in one place.
+                </p>
+                <div class="d-flex flex-wrap gap-2 mt-4">
+                    <a href="{{ url_for('auth.register') }}" class="btn btn-light btn-lg px-4">Request a Repair</a>
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-outline-light btn-lg px-4">Login</a>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="hero-card">
+                    <img src="{{ url_for('static', filename='images/repair-shop.svg') }}"
+                         class="img-fluid" alt="Illustration of a laptop and smartphone being repaired">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="services" class="py-5">
+    <div class="container">
+        <div class="text-center mb-4">
+            <span class="section-kicker">OUR SERVICES</span>
+            <h2 class="fw-bold">What we can repair</h2>
+            <p class="text-muted">Simple, practical services for everyday devices.</p>
+        </div>
+        <div class="row g-3">
+            {% for title, description in services %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm service-card">
+                    <div class="card-body">
+                        <div class="service-icon">✓</div>
+                        <h5 class="fw-semibold">{{ title }}</h5>
+                        <p class="text-muted mb-0">{{ description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-6">
+                <span class="section-kicker">WHY TECHFIX?</span>
+                <h2 class="fw-bold">Know what is happening to your device.</h2>
+                <p class="text-muted">
+                    Instead of relying on handwritten notes and repeated phone calls, the system keeps
+                    repair information organized from request to completion.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <div class="row g-3">
+                    <div class="col-12 col-sm-4">
+                        <div class="mini-stat"><strong>01</strong><span>Submit request</span></div>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <div class="mini-stat"><strong>02</strong><span>Track status</span></div>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <div class="mini-stat"><strong>03</strong><span>Pick up device</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="cta-card p-4 p-lg-5 text-center">
+            <h2 class="fw-bold">Need a device checked?</h2>
+            <p class="mb-4">Create a free account and submit your repair request.</p>
+            <a href="{{ url_for('auth.register') }}" class="btn btn-light btn-lg">Get Started</a>
+        </div>
+    </div>
+</section>
+
+<section class="pb-5">
+    <div class="container">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h5 class="fw-bold">Contact TechFix</h5>
+                <p class="mb-1">123 Tech Street, Metro Manila</p>
+                <p class="mb-1">(02) 8123-4567</p>
+                <p class="mb-0">techfix@example.com</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

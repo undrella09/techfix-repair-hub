@@ -1,0 +1,48 @@
+<div class="table-responsive">
+    <table class="table align-middle">
+        <thead>
+        <tr>
+            <th>Repair ID</th>
+            <th>Customer</th>
+            <th>Device</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Problem</th>
+            <th>Status</th>
+            <th>Estimated Cost</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for job in jobs %}
+        <tr>
+            <td>#{{ job.id }}</td>
+            <td>{{ job.customer.name }}</td>
+            <td>{{ job.device_type }}</td>
+            <td>{{ job.brand }}</td>
+            <td>{{ job.model }}</td>
+            <td class="text-truncate-cell">{{ job.problem_description }}</td>
+            <td><span class="badge {{ status_badge(job.repair_status) }}">{{ job.repair_status }}</span></td>
+            <td>{{ job.cost_display }}</td>
+            <td>{{ job.created_at.strftime('%Y-%m-%d') }}</td>
+            <td>
+                <div class="d-flex flex-wrap gap-1">
+                    <a class="btn btn-sm btn-outline-primary"
+                       href="{{ url_for('admin.view_repair_job', repair_id=job.id) }}">View</a>
+                    <a class="btn btn-sm btn-outline-secondary"
+                       href="{{ url_for('admin.edit_repair_job', repair_id=job.id) }}">Edit</a>
+                    <form method="post"
+                          action="{{ url_for('admin.delete_repair_job', repair_id=job.id) }}"
+                          onsubmit="return confirm('Are you sure you want to delete Repair Job #{{ job.id }}? This action cannot be undone.');">
+                        <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="10" class="text-center text-muted py-4">No repair jobs found.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

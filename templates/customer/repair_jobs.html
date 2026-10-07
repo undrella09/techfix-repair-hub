@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}My Repair Jobs | TechFix Repair Hub{% endblock %}
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-4">
+        <div>
+            <h1 class="h3 fw-bold mb-1">My Repair Jobs</h1>
+            <p class="text-muted mb-0">Only your own repair records are shown.</p>
+        </div>
+        <a href="{{ url_for('customer.create_repair_job') }}" class="btn btn-primary">+ New Repair Request</a>
+    </div>
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                    <tr>
+                        <th>Repair ID</th>
+                        <th>Device</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Problem</th>
+                        <th>Status</th>
+                        <th>Estimated Cost</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for job in jobs %}
+                    <tr>
+                        <td>#{{ job.id }}</td>
+                        <td>{{ job.device_type }}</td>
+                        <td>{{ job.brand }}</td>
+                        <td>{{ job.model }}</td>
+                        <td class="text-truncate-cell">{{ job.problem_description }}</td>
+                        <td><span class="badge {{ status_badge(job.repair_status) }}">{{ job.repair_status }}</span></td>
+                        <td>{{ job.cost_display }}</td>
+                        <td>{{ job.created_at.strftime('%Y-%m-%d') }}</td>
+                        <td>
+                            <div class="d-flex flex-wrap gap-1">
+                                <a class="btn btn-sm btn-outline-primary" href="{{ url_for('customer.view_repair_job', repair_id=job.id) }}">View</a>
+                                {% if job.repair_status == 'Pending' %}
+                                <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('customer.edit_repair_job', repair_id=job.id) }}">Edit</a>
+                                <form method="post" action="{{ url_for('customer.delete_repair_job', repair_id=job.id) }}" class="d-inline"
+                                      onsubmit="return confirm('Are you sure you want to delete Repair Job #{{ job.id }}? This action cannot be undone.');">
+                                    <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="9" class="text-center text-muted py-4">No repair requests yet.</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

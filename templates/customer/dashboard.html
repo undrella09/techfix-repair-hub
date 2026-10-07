@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Customer Dashboard | TechFix Repair Hub{% endblock %}
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-4">
+        <div>
+            <h1 class="h3 fw-bold mb-1">Welcome, {{ current_user.name }}!</h1>
+            <p class="text-muted mb-0">Track your repair requests and updates.</p>
+        </div>
+        <a href="{{ url_for('customer.create_repair_job') }}" class="btn btn-primary">+ New Repair Request</a>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-lg-3"><div class="stat-card"><span>Total</span><strong>{{ stats.total }}</strong></div></div>
+        <div class="col-6 col-lg-3"><div class="stat-card"><span>Pending</span><strong>{{ stats.pending }}</strong></div></div>
+        <div class="col-6 col-lg-3"><div class="stat-card"><span>Active</span><strong>{{ stats.active }}</strong></div></div>
+        <div class="col-6 col-lg-3"><div class="stat-card"><span>Completed</span><strong>{{ stats.completed }}</strong></div></div>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <h2 class="h5 fw-bold mb-3">My Repair Jobs</h2>
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Device</th>
+                            <th>Problem</th>
+                            <th>Status</th>
+                            <th>Cost</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for job in jobs %}
+                        <tr>
+                            <td>#{{ job.id }}</td>
+                            <td>{{ job.brand }} {{ job.model }}<br><span class="small text-muted">{{ job.device_type }}</span></td>
+                            <td class="text-truncate-cell">{{ job.problem_description }}</td>
+                            <td><span class="badge {{ status_badge(job.repair_status) }}">{{ job.repair_status }}</span></td>
+                            <td>{{ job.cost_display }}</td>
+                            <td>
+                                <div class="d-flex flex-wrap gap-1">
+                                    <a class="btn btn-sm btn-outline-primary" href="{{ url_for('customer.view_repair_job', repair_id=job.id) }}">View</a>
+                                    {% if job.repair_status == 'Pending' %}
+                                    <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('customer.edit_repair_job', repair_id=job.id) }}">Edit</a>
+                                    <form method="post" action="{{ url_for('customer.delete_repair_job', repair_id=job.id) }}" class="d-inline"
+                                          onsubmit="return confirm('Are you sure you want to delete Repair Job #{{ job.id }}? This action cannot be undone.');">
+                                        <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+                                    </form>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="6" class="text-center text-muted py-4">No repair requests yet.</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

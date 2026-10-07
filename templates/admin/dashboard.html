@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard | TechFix Repair Hub{% endblock %}
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-4">
+        <div>
+            <h1 class="h3 fw-bold mb-1">Admin Dashboard</h1>
+            <p class="text-muted mb-0">Manage all repair jobs from one place.</p>
+        </div>
+        <a href="{{ url_for('admin.create_repair_job') }}" class="btn btn-primary">+ Add Repair Job</a>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-lg"><div class="stat-card"><span>Total</span><strong>{{ stats.total }}</strong></div></div>
+        <div class="col-6 col-lg"><div class="stat-card"><span>Pending</span><strong>{{ stats.pending }}</strong></div></div>
+        <div class="col-6 col-lg"><div class="stat-card"><span>In Repair</span><strong>{{ stats.in_repair }}</strong></div></div>
+        <div class="col-6 col-lg"><div class="stat-card"><span>Ready</span><strong>{{ stats.ready }}</strong></div></div>
+        <div class="col-6 col-lg"><div class="stat-card"><span>Completed</span><strong>{{ stats.completed }}</strong></div></div>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="h5 fw-bold mb-0">Recent Repair Jobs</h2>
+                <a href="{{ url_for('admin.repair_jobs') }}" class="small">View all</a>
+            </div>
+            {% include "partials/repair_table.html" %}
+        </div>
+    </div>
+</div>
+{% endblock %}

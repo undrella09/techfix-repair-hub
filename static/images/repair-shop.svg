@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 500" role="img" aria-labelledby="title desc">
+  <title id="title">TechFix repair illustration</title>
+  <desc id="desc">A laptop and smartphone beside simple repair tools.</desc>
+  <rect width="700" height="500" rx="36" fill="#f4f8fc"/>
+  <rect x="98" y="105" width="420" height="265" rx="18" fill="#113c63"/>
+  <rect x="120" y="127" width="376" height="213" rx="10" fill="#dceeff"/>
+  <rect x="250" y="342" width="120" height="18" rx="9" fill="#113c63"/>
+  <path d="M185 377h250l-22 25H207z" fill="#8fa9bf"/>
+  <rect x="492" y="212" width="118" height="220" rx="18" fill="#1c5a8a"/>
+  <rect x="505" y="235" width="92" height="167" rx="10" fill="#e8f5ff"/>
+  <circle cx="551" cy="416" r="8" fill="#c9d8e5"/>
+  <circle cx="160" cy="67" r="22" fill="#2f80ed"/>
+  <path d="M160 51v32M144 67h32" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+  <path d="M560 95l54 44M600 95l-44 44" stroke="#2f80ed" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="558" cy="67" r="28" fill="#2f80ed" opacity=".14"/>
+  <text x="350" y="460" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#113c63">REPAIR • TRACK • COMPLETE</text>
+</svg>

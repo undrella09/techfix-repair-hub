@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Repair Jobs | TechFix Repair Hub{% endblock %}
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-4">
+        <div>
+            <h1 class="h3 fw-bold mb-1">Repair Jobs</h1>
+            <p class="text-muted mb-0">Create, view, update, and delete repair records.</p>
+        </div>
+        <a href="{{ url_for('admin.create_repair_job') }}" class="btn btn-primary">+ Add Repair Job</a>
+    </div>
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            {% include "partials/repair_table.html" %}
+        </div>
+    </div>
+</div>
+{% endblock %}

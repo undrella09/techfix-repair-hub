@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}TechFix Repair Hub{% endblock %}</title>
+    <meta name="description" content="TechFix Repair Hub computer and cellphone repair management system.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark techfix-nav sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{{ url_for('main.index') }}">TechFix Repair Hub</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.index') }}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.index') }}#services">Services</a></li>
+                {% if current_user and current_user.role == 'admin' %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('admin.dashboard') }}">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('admin.repair_jobs') }}">Repair Jobs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('admin.customers') }}">Customers</a></li>
+                {% elif current_user and current_user.role == 'customer' %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('customer.dashboard') }}">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('customer.repair_jobs') }}">My Repair Jobs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('customer.create_repair_job') }}">New Repair Request</a></li>
+                {% endif %}
+            </ul>
+
+            <div class="d-flex gap-2 align-items-center">
+                {% if current_user %}
+                    <span class="text-white-50 small d-none d-md-inline">Signed in as {{ current_user.name }}</span>
+                    <a class="btn btn-outline-light btn-sm" href="{{ url_for('auth.logout') }}">Logout</a>
+                {% else %}
+                    <a class="btn btn-outline-light btn-sm" href="{{ url_for('auth.login') }}">Login</a>
+                    <a class="btn btn-light btn-sm" href="{{ url_for('auth.register') }}">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="container pt-3">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="mt-5 py-4 bg-dark text-white">
+    <div class="container text-center">
+        <p class="mb-1 fw-semibold">TechFix Repair Hub</p>
+        <p class="mb-1 small">Computer, laptop, and cellphone repair services.</p>
+        <p class="mb-0 small text-white-50">Mon–Sat • 9:00 AM–6:00 PM • (02) 8123-4567</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
